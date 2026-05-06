@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Calculadora Ganadera Pro</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<header>
+    <h1>🐄 Calculadora Ganadera PRO</h1>
+    <a href="diccionarioganaderia.html">📖 Diccionario</a>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <h3>🐄 Vacas</h3>
+        <input type="number" id="vacasCantidad" placeholder="Cantidad">
+        <input type="number" id="vacasPrecio" placeholder="Precio">
+        <p class="subtotal" id="subVacas">Subtotal: $0</p>
+    </div>
+
+    <div class="card">
+        <h3>🐂 Toros</h3>
+        <input type="number" id="torosCantidad" placeholder="Cantidad">
+        <input type="number" id="torosPrecio" placeholder="Precio">
+        <p class="subtotal" id="subToros">Subtotal: $0</p>
+    </div>
+
+    <div class="card">
+        <h3>🐖 Cerdos</h3>
+        <input type="number" id="cerdosCantidad" placeholder="Cantidad">
+        <input type="number" id="cerdosPrecio" placeholder="Precio">
+        <p class="subtotal" id="subCerdos">Subtotal: $0</p>
+    </div>
+
+    <div class="card">
+        <h3>🐔 Gallinas</h3>
+        <input type="number" id="gallinasCantidad" placeholder="Cantidad">
+        <input type="number" id="gallinasPrecio" placeholder="Precio">
+        <p class="subtotal" id="subGallinas">Subtotal: $0</p>
+    </div>
+
+    <div class="card">
+        <h3>🐎 Caballos</h3>
+        <input type="number" id="caballosCantidad" placeholder="Cantidad">
+        <input type="number" id="caballosPrecio" placeholder="Precio">
+        <p class="subtotal" id="subCaballos">Subtotal: $0</p>
+    </div>
+
+</div>
+
+<button onclick="calcular()">💰 Calcular Todo</button>
+<button class="ia-button" onclick="irAIA()">🤖 Asistente Ganadero</button>
+
+<div class="total" id="totalGeneral">Total: $0</div>
+
+<script type="module" src="firebase.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>

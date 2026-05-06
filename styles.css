@@ -1,0 +1,198 @@
+
+/* FONDO CON IMAGEN GANADERA */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: 
+        linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)),
+        url("https://images.unsplash.com/photo-1500595046743-cd271d694d30");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+}
+
+/* HEADER */
+header {
+    text-align: center;
+    padding: 20px;
+    background: rgba(0,0,0,0.5);
+    border-bottom: 2px solid #ffd54f;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+header a {
+    color: #ffd54f;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* CONTENEDOR */
+.container {
+    padding: 20px;
+}
+
+/* TARJETAS DE ANIMALES */
+.card {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.6);
+    transition: 0.3s;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.card:hover {
+    transform: scale(1.05);
+    border-color: #ffd54f;
+}
+
+/* INPUTS */
+input {
+    width: 90%;
+    padding: 10px;
+    margin: 6px 0;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+
+/* SUBTOTALES */
+.subtotal {
+    margin-top: 10px;
+    color: #00ffcc;
+    font-weight: bold;
+}
+
+/* BOTÓN */
+button {
+    display: block;
+    margin: 30px auto;
+    padding: 15px 35px;
+    font-size: 18px;
+    background: linear-gradient(45deg, #ff9800, #ff5722);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    color: white;
+    box-shadow: 0 0 15px rgba(255,152,0,0.7);
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px rgba(255,152,0,1);
+}
+
+.ia-button {
+    display: block;
+    margin: 10px auto;
+    padding: 15px 35px;
+    font-size: 18px;
+    background: linear-gradient(45deg, #4caf50, #2196f3);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    color: white;
+    box-shadow: 0 0 15px rgba(33,150,243,0.7);
+    transition: 0.3s;
+}
+
+.ia-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(33,150,243,1);
+}
+
+.ia-response {
+    margin-top: 10px;
+    padding: 15px;
+    background: rgba(0,0,0,0.4);
+    border-radius: 12px;
+    min-height: 80px;
+    color: #fff;
+    line-height: 1.6;
+}
+
+.ia-container {
+    display: grid;
+    gap: 20px;
+}
+
+.ia-result-card {
+    background: rgba(255,255,255,0.08);
+}
+
+textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    resize: vertical;
+}
+
+/* TOTAL GENERAL */
+.total {
+    text-align: center;
+    font-size: 28px;
+    color: #00ffcc;
+    text-shadow: 0 0 10px rgba(0,255,200,0.8);
+}
+
+/* ------------------ */
+/* 📖 DICCIONARIO */
+/* ------------------ */
+
+.diccionario {
+    display: grid;
+    gap: 15px;
+}
+
+/* TARJETAS DE TÉRMINOS */
+.termino {
+    background: rgba(0,0,0,0.5);
+    border-left: 5px solid #ffd54f;
+    padding: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.termino:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateX(5px);
+}
+
+/* DEFINICIÓN OCULTA */
+.termino p {
+    display: none;
+    margin-top: 10px;
+    font-weight: normal;
+    color: #c8e6c9;
+}
+
+/* CUANDO SE ABRE */
+.termino.activo {
+    background: rgba(76,175,80,0.3);
+}
+
+.termino.activo p {
+    display: block;
+}
+
+/* RESPONSIVE */
+@media (min-width: 768px) {
+    .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}
