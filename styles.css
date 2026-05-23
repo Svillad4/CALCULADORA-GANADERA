@@ -147,6 +147,33 @@ textarea {
     text-shadow: 0 0 10px rgba(0,255,200,0.8);
 }
 
+/* VALIDACIÓN - MENSAJES DE ERROR */
+.error-message {
+    background: linear-gradient(45deg, #ff5722, #ff6f00);
+    border: 2px solid #ff5722;
+    border-radius: 10px;
+    padding: 12px 15px;
+    margin: 8px 0;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    animation: shake 0.3s ease-in-out, fadeIn 0.3s ease-in;
+    box-shadow: 0 0 15px rgba(255,87,34,0.6);
+    font-size: 14px;
+}
+
+.input-invalid {
+    border: 2px solid #ff5722 !important;
+    background: rgba(255,87,34,0.2) !important;
+    box-shadow: 0 0 8px rgba(255,87,34,0.4) inset !important;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
 /* ------------------ */
 /* 📖 DICCIONARIO */
 /* ------------------ */

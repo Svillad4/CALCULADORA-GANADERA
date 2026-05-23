@@ -1,4 +1,103 @@
+// Elementos de inputs que deben validarse
+const inputIds = [
+    "vacasCantidad", "vacasPrecio",
+    "torosCantidad", "torosPrecio",
+    "cerdosCantidad", "cerdosPrecio",
+    "gallinasCantidad", "gallinasPrecio",
+    "caballosCantidad", "caballosPrecio"
+];
+
+// Inicializar validación al cargar la página
+document.addEventListener('DOMContentLoaded', function() {
+    inputIds.forEach(id => {
+        const input = document.getElementById(id);
+        if (input) {
+            input.addEventListener('input', validarInput);
+            input.addEventListener('change', validarInput);
+        }
+    });
+});
+
+// Función para validar un input individual
+function validarInput(event) {
+    const input = event.target;
+    const valor = parseFloat(input.value);
+
+    // Si el campo está vacío, no hacer nada
+    if (input.value === '' || input.value === null) {
+        limpiarErrorEnInput(input);
+        return true;
+    }
+
+    // Si el valor es negativo
+    if (valor < 0) {
+        input.classList.add('input-invalid');
+        mostrarErrorEnInput(input, "No se permiten números negativos");
+        input.value = '';
+        return false;
+    } else {
+        limpiarErrorEnInput(input);
+        return true;
+    }
+}
+
+// Mostrar mensaje de error cerca del input
+function mostrarErrorEnInput(input, mensaje) {
+    // Remover mensaje anterior si existe
+    const mensajeAnterior = input.parentElement.querySelector('.error-message');
+    if (mensajeAnterior) {
+        mensajeAnterior.remove();
+    }
+
+    // Crear nuevo mensaje de error
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error-message';
+    errorDiv.textContent = '⚠️ ' + mensaje;
+    input.parentElement.insertBefore(errorDiv, input.nextSibling);
+
+    // Auto-remover el mensaje después de 3 segundos
+    setTimeout(() => {
+        if (errorDiv.parentElement) {
+            errorDiv.remove();
+        }
+    }, 3000);
+}
+
+// Limpiar estilos de error en el input
+function limpiarErrorEnInput(input) {
+    input.classList.remove('input-invalid');
+    const mensajeError = input.parentElement.querySelector('.error-message');
+    if (mensajeError) {
+        mensajeError.remove();
+    }
+}
+
+// Validar todos los inputs antes de calcular
+function validarTodosLosInputs() {
+    let hayErrores = false;
+
+    inputIds.forEach(id => {
+        const input = document.getElementById(id);
+        if (input && input.value !== '') {
+            const valor = parseFloat(input.value);
+            if (valor < 0) {
+                hayErrores = true;
+                input.classList.add('input-invalid');
+                mostrarErrorEnInput(input, "No se permiten números negativos");
+                input.value = '';
+            }
+        }
+    });
+
+    return !hayErrores;
+}
+
 function calcular() {
+    // Validar todos los inputs antes de calcular
+    if (!validarTodosLosInputs()) {
+        mostrarErrorGlobal("⚠️ Corrige los campos con números negativos para continuar");
+        return;
+    }
 
     let vacas = calcularAnimal("vacasCantidad", "vacasPrecio", "subVacas");
     let toros = calcularAnimal("torosCantidad", "torosPrecio", "subToros");
@@ -9,6 +108,27 @@ function calcular() {
     let total = vacas + toros + cerdos + gallinas + caballos;
 
     document.getElementById("totalGeneral").innerText = "Total: $" + formatear(total);
+}
+
+// Mostrar error global si hay valores negativos
+function mostrarErrorGlobal(mensaje) {
+    const container = document.querySelector('.container');
+    let errorGlobal = document.querySelector('.error-global');
+    
+    if (errorGlobal) {
+        errorGlobal.remove();
+    }
+
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error-message error-global';
+    errorDiv.textContent = mensaje;
+    container.insertBefore(errorDiv, container.firstChild);
+
+    setTimeout(() => {
+        if (errorDiv.parentElement) {
+            errorDiv.remove();
+        }
+    }, 4000);
 }
 
 function calcularAnimal(idCant, idPrecio, idSub) {
