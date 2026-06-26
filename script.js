@@ -92,7 +92,24 @@ function validarTodosLosInputs() {
     return !hayErrores;
 }
 
+// Validar que no queden campos vacíos antes de calcular
+function validarCamposCompletos() {
+    for (let id of inputIds) {
+        const input = document.getElementById(id);
+        if (!input || input.value.trim() === '') {
+            return false;
+        }
+    }
+    return true;
+}
+
 function calcular() {
+    // Validar que todos los campos estén completos antes de calcular
+    if (!validarCamposCompletos()) {
+        alert("Completa todos los campos antes de calcular.");
+        return;
+    }
+
     // Validar todos los inputs antes de calcular
     if (!validarTodosLosInputs()) {
         mostrarErrorGlobal("⚠️ Corrige los campos con números negativos para continuar");
@@ -148,6 +165,30 @@ function calcular() {
     if (elementoFecha) {
         elementoFecha.innerText = `Cálculo realizado el ${fechaStr} a las ${horaStr}.`;
     }
+
+    // Mostrar total de animales registrados (nueva funcionalidad)
+    const totalAnimales = obtenerTotalAnimales();
+    const elementoTotalAnimales = document.getElementById('totalAnimales');
+    if (elementoTotalAnimales) {
+        elementoTotalAnimales.innerText = `Total de animales registrados: ${totalAnimales}`;
+    }
+}
+
+// Contar todas las cantidades de animales ingresadas
+function obtenerTotalAnimales() {
+    const cantidadIds = [
+        "vacasCantidad",
+        "torosCantidad",
+        "cerdosCantidad",
+        "gallinasCantidad",
+        "caballosCantidad"
+    ];
+
+    return cantidadIds.reduce((total, id) => {
+        const input = document.getElementById(id);
+        const valor = input ? parseFloat(input.value) : 0;
+        return total + (isNaN(valor) ? 0 : valor);
+    }, 0);
 }
 
 // Mostrar error global si hay valores negativos
@@ -245,6 +286,8 @@ function limpiarDatos() {
     if (mayorElem) mayorElem.innerText = '';
     const fechaElem = document.getElementById('fechaCalculo');
     if (fechaElem) fechaElem.innerText = '';
+    const totalAnimalesElem = document.getElementById('totalAnimales');
+    if (totalAnimalesElem) totalAnimalesElem.innerText = '';
 
     const subtotales = ["subVacas", "subToros", "subCerdos", "subGallinas", "subCaballos"];
     subtotales.forEach(id => {
