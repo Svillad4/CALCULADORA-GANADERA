@@ -108,10 +108,12 @@ function calcular() {
     let total = vacas + toros + cerdos + gallinas + caballos;
 
     document.getElementById("totalGeneral").innerText = "Total: $" + formatear(total);
+    mostrarMensajeOperacion("Cálculo realizado correctamente.");
 }
 
 // Mostrar error global si hay valores negativos
 function mostrarErrorGlobal(mensaje) {
+    ocultarMensajeOperacion();
     const container = document.querySelector('.container');
     let errorGlobal = document.querySelector('.error-global');
     
@@ -180,4 +182,59 @@ function generarRespuestaIA(pregunta) {
     }
 
     return "Esta es una respuesta simulada de IA. Integra una API real si deseas respuestas más precisas.";
+}
+
+function limpiarDatos() {
+    const confirmar = confirm("¿Está seguro de que desea vaciar los datos?");
+    if (!confirmar) {
+        return;
+    }
+
+    inputIds.forEach(id => {
+        const input = document.getElementById(id);
+        if (input) {
+            input.value = '';
+            limpiarErrorEnInput(input);
+        }
+    });
+
+    document.getElementById("totalGeneral").innerText = "Total: $0";
+    document.getElementById("mensajeOperacion").innerText = '';
+
+    const subtotales = ["subVacas", "subToros", "subCerdos", "subGallinas", "subCaballos"];
+    subtotales.forEach(id => {
+        const elemento = document.getElementById(id);
+        if (elemento) {
+            elemento.innerText = "Subtotal: $0";
+        }
+    });
+}
+
+function mostrarMensajeOperacion(mensaje) {
+    const contenedor = document.getElementById("mensajeOperacion");
+    if (!contenedor) {
+        return;
+    }
+
+    contenedor.innerText = mensaje;
+    contenedor.classList.add('mensaje-exito');
+    contenedor.classList.remove('mensaje-error');
+
+    clearTimeout(contenedor._mensajeTimeout);
+    contenedor._mensajeTimeout = setTimeout(() => {
+        if (contenedor) {
+            contenedor.innerText = '';
+            contenedor.classList.remove('mensaje-exito');
+        }
+    }, 5000);
+}
+
+function ocultarMensajeOperacion() {
+    const contenedor = document.getElementById("mensajeOperacion");
+    if (!contenedor) {
+        return;
+    }
+    contenedor.innerText = '';
+    contenedor.classList.remove('mensaje-exito', 'mensaje-error');
+    clearTimeout(contenedor._mensajeTimeout);
 }
