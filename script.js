@@ -109,6 +109,45 @@ function calcular() {
 
     document.getElementById("totalGeneral").innerText = "Total: $" + formatear(total);
     mostrarMensajeOperacion("Cálculo realizado correctamente.");
+
+    // ----------------------------
+    // Determinar animal con mayor valor
+    // ----------------------------
+    // Mapear nombres legibles a los subtotales calculados
+    const animales = {
+        "Vacas": vacas,
+        "Toros": toros,
+        "Cerdos": cerdos,
+        "Gallinas": gallinas,
+        "Caballos": caballos
+    };
+
+    // Buscar el máximo
+    let nombreMax = null;
+    let valorMax = -Infinity;
+    Object.entries(animales).forEach(([nombre, valor]) => {
+        if (valor > valorMax) {
+            valorMax = valor;
+            nombreMax = nombre;
+        }
+    });
+
+    // Mostrar el animal con mayor valor total (incluir formato de moneda)
+    const elementoMayor = document.getElementById('mayorValor');
+    if (elementoMayor) {
+        elementoMayor.innerText = `El animal con mayor valor total es: ${nombreMax} ($${formatear(valorMax)})`;
+    }
+
+    // ----------------------------
+    // Registrar fecha y hora del cálculo
+    // ----------------------------
+    const ahora = new Date();
+    const fechaStr = ahora.toLocaleDateString('es-ES');
+    const horaStr = ahora.toLocaleTimeString('es-CO', { hour: 'numeric', minute: '2-digit', hour12: true });
+    const elementoFecha = document.getElementById('fechaCalculo');
+    if (elementoFecha) {
+        elementoFecha.innerText = `Cálculo realizado el ${fechaStr} a las ${horaStr}.`;
+    }
 }
 
 // Mostrar error global si hay valores negativos
@@ -200,6 +239,12 @@ function limpiarDatos() {
 
     document.getElementById("totalGeneral").innerText = "Total: $0";
     document.getElementById("mensajeOperacion").innerText = '';
+
+    // Limpiar información adicional (animal con mayor valor y fecha/hora)
+    const mayorElem = document.getElementById('mayorValor');
+    if (mayorElem) mayorElem.innerText = '';
+    const fechaElem = document.getElementById('fechaCalculo');
+    if (fechaElem) fechaElem.innerText = '';
 
     const subtotales = ["subVacas", "subToros", "subCerdos", "subGallinas", "subCaballos"];
     subtotales.forEach(id => {
